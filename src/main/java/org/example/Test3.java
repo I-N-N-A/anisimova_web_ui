@@ -2,11 +2,13 @@ package org.example;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.concurrent.TimeUnit;
 
@@ -17,7 +19,7 @@ public class Test3 {
     private static final String LOGIN_PAGE_URL = "https://crm.geekbrains.space/user/login";
     private static final String STUDENT_LOGIN = "Applanatest";
     private static final String STUDENT_PASSWORD = "Student2020!";
-    private static WebDriver driver;
+    private static  WebDriver driver;
 
     static {
         WebDriverManager.chromedriver().setup();
@@ -47,37 +49,31 @@ public class Test3 {
 
         driver.findElement(By.xpath("//label[contains(.,'Доллар США')]")).click();
 
-        driver.findElement(By.xpath(
-                "//span/div[2]/div")).click();
 
-        driver.findElement(By.xpath(
-                "//select[@name='date']")).click();
-        WebElement element = driver.findElement(By.xpath("//select[@name='date']"));
-        Select dropDown = new Select(element);
-        dropDown.selectByVisibleText("равно");
-         element.click();
-
-
-        driver.findElement(By.cssSelector(
-                ".filter-start-date .datepicker-input")).click();
-        driver.findElement(By.cssSelector(".open > .datepicker-input")).click();
-
-
-
-
-
-//        WebElement notifyDateHasChangedCheckbox = driver.findElement(By.name("data[dateChangeNotify]"));
-//        System.out.println("Before click: " + notifyDateHasChangedCheckbox.isSelected());
-//        notifyDateHasChangedCheckbox.click();
+//        driver.findElement(By.xpath(
+//                "//span/div[2]/div")).click();
 //
-//        System.out.println("After click: " + notifyDateHasChangedCheckbox.isSelected());
-//        driver.findElement(By.xpath("//input[@type='text'] and [text()='21.03.2021']")).click();
-
-
-        driver.findElement(By.cssSelector("button[class='btn btn-success action-button']")).click();
-
-        driver.findElement(By.xpath(".//div[@class='btn-group']" +
-                "/button[@class='btn btn-success action-button']")).click();
+//        driver.findElement(By.xpath(
+//                "//select[@name='date']")).click();
+//        WebElement element = driver.findElement(By.xpath("//select[@name='date']"));
+//        Select dropDown = new Select(element);
+//        dropDown.selectByVisibleText("равно");
+//         element.click();
+//
+//
+//        driver.findElement(By.cssSelector(
+//                ".filter-start-date .datepicker-input")).click();
+//        driver.findElement(By.cssSelector(".open > .datepicker-input")).click();
+//
+////        driver.switchTo().frame(
+////                driver.findElement(By.cssSelector("iframe.demo-frame")));
+////        setDatepicker(driver, "#datepicker", "02/21/2021");
+//
+//        ((JavascriptExecutor)driver).executeScript ("document.getElementById('fromDate').removeAttribute('readonly',0);"); // Enables the from date box
+//
+//        WebElement fromDateBox= driver.findElement(By.id("fromDate"));
+//        fromDateBox.clear();
+//        fromDateBox.sendKeys("8-Dec-2014");
 
 
         driver.close();
@@ -98,5 +94,10 @@ public class Test3 {
         WebElement loginButton = driver.findElement(By.xpath(".//button[@name='_submit']"));
         loginButton.click();
     }
-
+//    private static void setDatepicker(WebDriver driver, String cssSelector, String date) {
+//        new WebDriverWait(driver, 30000).until(
+//                (WebDriver d) -> d.findElement(By.cssSelector(cssSelector)).isDisplayed());
+//        JavascriptExecutor.class.cast(driver).executeScript(
+//                String.format("$('%s').datepicker('setDate', '%s')", cssSelector, date));
+//    }
 }

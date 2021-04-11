@@ -1,3 +1,8 @@
 # Default ignored files
 /shelf/
 /workspace.xml
+.idea
+.idea/*
+target
+target/*
+anisimova_web-ui.iml
