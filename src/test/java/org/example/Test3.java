@@ -1,16 +1,22 @@
 package org.example;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.platform.commons.logging.LoggerFactory;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Logger;
 
 import static java.lang.Thread.sleep;
 
@@ -19,6 +25,7 @@ public class Test3 {
     private static final String LOGIN_PAGE_URL = "https://crm.geekbrains.space/user/login";
     private static final String STUDENT_LOGIN = "Applanatest";
     private static final String STUDENT_PASSWORD = "Student2020!";
+    private static final Logger logger = (Logger) LoggerFactory.getLogger(Test3.class);
     private static  WebDriver driver;
 
     static {
@@ -34,15 +41,29 @@ public class Test3 {
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     }
+    @BeforeAll
+    static void beforeAllTests() {
+        logger.info("Before all tests");
+    }
 
-    public static void main(String[] args) throws InterruptedException {
+        static Actions builder = new Actions(driver);
+        static JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
+
+    @Test
+
+        public static void commonWaiterResult () {
         login();
 
-        driver.findElement(By.xpath(
-                ".//li[@class='dropdown']/a[@class='unclickable']" +
-                        "/span[text()='Справочники']")).click();
-        sleep(2000);
-        driver.findElement(By.xpath(".//*[@class='title' and text()='Курсы валют']")).click();
+        new WebDriverWait(driver, 7)
+                .until(ExpectedConditions.presenceOfElementLocated(By.xpath(".//div[@id='main-menu']")));
+
+        Actions builder = new Actions(driver);
+        builder.moveToElement(driver.findElement((By.xpath(".//li[@class='dropdown']/a[@class='unclickable']" +
+                        "/span[text()='Справочники']"))))
+                .moveToElement(driver.findElement(By.xpath(".//*[@class='title' and text()='Курсы валют']")))
+                .click()
+                .build()
+                .perform();
 
 
         driver.findElement(new By.ByCssSelector(".filter-select")).click();
